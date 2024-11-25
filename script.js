@@ -15,11 +15,13 @@ document.addEventListener('DOMContentLoaded', () => {
         e.stopPropagation();
     }
 
+    // Prevent default behavior for drag-and-drop
     ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
         dropZone1.addEventListener(eventName, preventDefaults, false);
         dropZone2.addEventListener(eventName, preventDefaults, false);
     });
 
+    // Handle file reading and display content in textarea
     function handleFile(file, textarea) {
         const reader = new FileReader();
         reader.onload = (e) => {
@@ -40,15 +42,17 @@ document.addEventListener('DOMContentLoaded', () => {
     fileInput1.addEventListener('change', () => handleFile(fileInput1.files[0], script1));
     fileInput2.addEventListener('change', () => handleFile(fileInput2.files[0], script2));
 
+    // Merge and display diffs
     mergeButton.addEventListener('click', () => {
         const content1 = script1.value;
         const content2 = script2.value;
 
         if (!content1 || !content2) {
-            alert('Please select two Python scripts.');
+            alert('Please select or drop both Python scripts.');
             return;
         }
 
+        // Generate diff using JsDiff
         const diff = JsDiff.createTwoFilesPatch('Script1.py', 'Script2.py', content1, content2);
         const diffHtml = Diff2Html.html(diff, { drawFileList: false, matching: 'lines' });
         diffOutput.innerHTML = diffHtml;
