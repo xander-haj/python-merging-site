@@ -108,7 +108,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     }
                     if (line2) {
                         // Blue: Only in File 2
-                        mergedHtml += `<span style="background-color: rgba(50, 131, 255, 1);">${line2}</span>\n`;
+                        mergedHtml += `<span style="background-color: rgba(50, 50, 255, 1);">${line2}</span>\n`;
                     }
                 }
             }
