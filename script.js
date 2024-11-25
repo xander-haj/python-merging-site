@@ -91,18 +91,18 @@ document.addEventListener('DOMContentLoaded', () => {
         simulateProgress(() => {
             // Generate diff using JsDiff
             const diff = JsDiff.diffLines(content1, content2);
-            let mergedHtml = "";
+            let mergedText = "";
             diff.forEach(part => {
-                const escapedText = part.value.replace(/</g, "&lt;").replace(/>/g, "&gt;");
                 if (part.added) {
-                    mergedHtml += `<div class="line-addition">${escapedText}</div>`;
+                    mergedText += `+ ${part.value}`;
                 } else if (part.removed) {
-                    mergedHtml += `<div>${escapedText}</div>`;
+                    mergedText += `- ${part.value}`;
                 } else {
-                    mergedHtml += `<div class="line-identical">${escapedText}</div>`;
+                    mergedText += `  ${part.value}`;
                 }
             });
-            diffOutput.innerHTML = mergedHtml;
+            diffOutput.value = mergedText;
         });
+        
     });
 });

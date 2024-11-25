@@ -100,7 +100,12 @@ textarea {
     margin-top: 20px;
     background-color: #1e1e1e;
     color: white;
-    padding: 20px;
+    padding: 10px;
     border-radius: 5px;
     overflow-x: auto;
+    width: 100%;
+    min-height: 200px;
+    resize: vertical;
+    font-family: 'Courier New', Courier, monospace;
 }
+
