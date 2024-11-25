@@ -13,12 +13,24 @@
         <h1>Python Script Merger</h1>
         <div class="input-section">
             <div class="file-input">
-                <label for="script1">Script 1:</label>
-                <textarea id="script1" placeholder="Paste your first Python script here..."></textarea>
+                <label for="fileInput1">Script 1:</label>
+                <div id="dropZone1" class="drop-zone">
+                    <p>Drag & Drop Script 1 here or</p>
+                    <button type="button" class="select-button" id="selectButton1">Select File</button>
+                    <input type="file" id="fileInput1" accept=".py" hidden>
+                    <span id="fileName1" class="file-name">No file selected</span>
+                </div>
+                <textarea id="script1" placeholder="Script 1 content will appear here..." readonly></textarea>
             </div>
             <div class="file-input">
-                <label for="script2">Script 2:</label>
-                <textarea id="script2" placeholder="Paste your second Python script here..."></textarea>
+                <label for="fileInput2">Script 2:</label>
+                <div id="dropZone2" class="drop-zone">
+                    <p>Drag & Drop Script 2 here or</p>
+                    <button type="button" class="select-button" id="selectButton2">Select File</button>
+                    <input type="file" id="fileInput2" accept=".py" hidden>
+                    <span id="fileName2" class="file-name">No file selected</span>
+                </div>
+                <textarea id="script2" placeholder="Script 2 content will appear here..." readonly></textarea>
             </div>
         </div>
         <button id="mergeButton">Merge Scripts</button>
