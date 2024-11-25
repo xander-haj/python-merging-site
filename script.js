@@ -80,29 +80,35 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Merge and display diffs
     mergeButton.addEventListener('click', () => {
-        const content1 = script1.value;
-        const content2 = script2.value;
-
-        if (!content1 || !content2) {
+        const content1 = script1.value.split("\n");
+        const content2 = script2.value.split("\n");
+    
+        if (!content1.length || !content2.length) {
             alert('Please select or drop both Python scripts.');
             return;
         }
-
+    
         simulateProgress(() => {
-            // Generate diff using JsDiff
-            const diff = JsDiff.diffLines(content1, content2);
             let mergedText = "";
-            diff.forEach(part => {
-                if (part.added) {
-                    mergedText += `+ ${part.value}`;
-                } else if (part.removed) {
-                    mergedText += `- ${part.value}`;
+            const file1Set = new Set(content1);
+    
+            content1.forEach(line => {
+                mergedText += `<span style="background-color: rgba(76, 175, 80, 0.2);"> ${line}</span>\n`; // Green: Base file
+            });
+    
+            content2.forEach(line => {
+                if (file1Set.has(line)) {
+                    // Purple: Duplicate lines
+                    mergedText += `<span style="background-color: rgba(156, 39, 176, 0.2);"> ${line}</span>\n`;
                 } else {
-                    mergedText += `  ${part.value}`;
+                    // Blue: New lines
+                    mergedText += `<span style="background-color: rgba(33, 150, 243, 0.2);"> ${line}</span>\n`;
                 }
             });
-            diffOutput.value = mergedText;
+    
+            // Display merged result in the textarea
+            diffOutput.innerHTML = mergedText;
         });
-        
     });
+    
 });
