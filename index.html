@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Python Script Merger</title>
+    <link rel="stylesheet" href="styles.css">
+    <!-- Diff2Html CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/diff2html/3.4.12/diff2html.min.css" integrity="sha512-yu4N8cPLldk5kxG1vc+GqfH6DDzMPkReWMhF4lrxkfnLKHlHdTeR7efQ6YvqkOltmm0bFqAZQQe1dzh5rC1xkA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+    <div class="container">
+        <h1>Python Script Merger</h1>
+        <div class="input-section">
+            <div class="file-input">
+                <label for="script1">Script 1:</label>
+                <textarea id="script1" placeholder="Paste your first Python script here..."></textarea>
+            </div>
+            <div class="file-input">
+                <label for="script2">Script 2:</label>
+                <textarea id="script2" placeholder="Paste your second Python script here..."></textarea>
+            </div>
+        </div>
+        <button id="mergeButton">Merge Scripts</button>
+        <div id="diffOutput"></div>
+    </div>
+
+    <!-- JsDiff JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/diff/5.0.0/diff.min.js" integrity="sha512-pMBmP6cA+GfhcCMmFyn8w1WEL+KtaYisYvG6+pp0EKGZ6p3T3V0aMYuP8bELnYhX5fJrVv0cAvfc6YkuzSwA9g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <!-- Diff2Html JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/diff2html/3.4.12/diff2html.min.js" integrity="sha512-YiXXAPx/N59nNkvhMAM4wddYTFP2X/HoO5pxwxV62PUHkQAkZynxGoZvy8dk+2Y5xnRdQ1BwFP0PzQ0qHhzJ+g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="script.js"></script>
+</body>
+</html>
