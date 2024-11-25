@@ -76,7 +76,8 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     function handleFile(file, inputElement, fileNameElement, textarea) {
-        if (file.type && file.type !== 'text/x-python' && file.type !== 'application/octet-stream') {
+        const validTypes = ['text/x-python', 'application/octet-stream'];
+        if (file.type && !validTypes.includes(file.type)) {
             alert('Please select a valid Python (.py) file.');
             return;
         }
@@ -85,6 +86,9 @@ document.addEventListener('DOMContentLoaded', () => {
         reader.onload = (e) => {
             textarea.value = e.target.result;
             fileNameElement.textContent = file.name;
+        };
+        reader.onerror = () => {
+            alert('Error reading file.');
         };
         reader.readAsText(file);
     }

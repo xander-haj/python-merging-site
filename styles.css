@@ -142,3 +142,14 @@ h1 {
 .diff2html .d2h-deletion {
     background-color: #b71c1c;
 }
+
+/* Responsive Design */
+@media (max-width: 600px) {
+    .input-section {
+        gap: 20px;
+    }
+
+    #mergeButton {
+        width: 100%;
+    }
+}

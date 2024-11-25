@@ -1,12 +1,13 @@
 # Python Script Merger
 
-A sleek, dark-themed website that allows users to input two Python scripts via drag-and-drop or file selection and view their merged differences with color-coded highlights.
+A sleek, dark-themed website that allows users to upload two Python scripts via drag-and-drop or file selection and view their merged differences with color-coded highlights.
 
 ## Features
 
 - **Dark Theme:** A modern and sleek dark interface.
 - **Script Input:** Upload two Python scripts by dragging & dropping or selecting files.
 - **Diff Visualization:** View differences similar to GitHub's pull request interface with color-coded additions and deletions.
+- **User Feedback:** Confirms when files are successfully loaded.
 
 ## Technologies Used
 
@@ -46,7 +47,3 @@ Hosted on [GitHub Pages](https://pages.github.com/).
     - Since this is a static site, there's no backend processing. All script comparisons are done on the client-side, ensuring user scripts are not sent to any server.
 
 ---
-
-By following these updated instructions and utilizing the provided code, you'll enhance your website to allow users to upload Python scripts effortlessly via drag-and-drop or file selection. This improvement significantly enhances the user experience by simplifying the input process.
-
-If you encounter any issues or need further customization, feel free to reach out!
