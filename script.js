@@ -90,9 +90,19 @@ document.addEventListener('DOMContentLoaded', () => {
 
         simulateProgress(() => {
             // Generate diff using JsDiff
-            const diff = JsDiff.createTwoFilesPatch('Script1.py', 'Script2.py', content1, content2);
-            const diffHtml = Diff2Html.html(diff, { drawFileList: false, matching: 'lines' });
-            diffOutput.innerHTML = diffHtml;
+            const diff = JsDiff.diffLines(content1, content2);
+            let mergedHtml = "";
+            diff.forEach(part => {
+                const escapedText = part.value.replace(/</g, "&lt;").replace(/>/g, "&gt;");
+                if (part.added) {
+                    mergedHtml += `<div class="line-addition">${escapedText}</div>`;
+                } else if (part.removed) {
+                    mergedHtml += `<div>${escapedText}</div>`;
+                } else {
+                    mergedHtml += `<div class="line-identical">${escapedText}</div>`;
+                }
+            });
+            diffOutput.innerHTML = mergedHtml;
         });
     });
 });
