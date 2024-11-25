@@ -8,13 +8,12 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    flex-direction: column;
     min-height: 100vh;
 }
 
 .container {
     width: 90%;
-    max-width: 1200px;
+    max-width: 1400px;
     margin: 0 auto;
     padding: 20px;
     display: flex;
@@ -23,25 +22,23 @@ body {
 }
 
 h1 {
-    margin-bottom: 20px;
-    font-size: 2rem;
+    font-size: 1.8rem;
     text-align: center;
+    margin-bottom: 20px;
 }
 
-/* Top Row Layout for Script 1 and Script 2 */
+/* Input Section Layout */
 .input-section {
-    display: flex;
-    justify-content: space-between;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 20px;
-    flex-wrap: wrap;
+    align-items: start;
 }
 
 .file-input {
     display: flex;
     flex-direction: column;
     gap: 10px;
-    flex: 1 1 calc(50% - 20px);
-    max-width: calc(50% - 20px);
 }
 
 textarea {
@@ -53,7 +50,6 @@ textarea {
     font-family: 'Courier New', Courier, monospace;
     width: 100%;
     min-height: 150px;
-    max-height: 300px;
 }
 
 /* Drag and Drop Zones */
@@ -72,14 +68,14 @@ textarea {
     background-color: #2c2c2c;
 }
 
-/* Bottom Row for Merged Scripts */
+/* Merged Output Section */
 #mergedSection {
     text-align: center;
     margin-top: 20px;
 }
 
 #mergeButton {
-    margin-top: 20px;
+    margin: 20px auto;
     padding: 10px 20px;
     background-color: #2962ff;
     color: white;
@@ -91,7 +87,7 @@ textarea {
 
 #progressBar {
     width: 100%;
-    max-width: 500px;
+    max-width: 600px;
     height: 10px;
     background-color: #333;
     border-radius: 5px;
@@ -116,9 +112,9 @@ textarea {
     color: white;
     padding: 10px;
     border-radius: 5px;
-    resize: vertical;
     font-family: 'Courier New', Courier, monospace;
     width: 100%;
     min-height: 200px;
+    resize: vertical;
     overflow: auto;
 }
