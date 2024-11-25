@@ -9,6 +9,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const script2 = document.getElementById('script2');
     const mergeButton = document.getElementById('mergeButton');
     const diffOutput = document.getElementById('diffOutput');
+    const progressBar = document.getElementById('progressBar');
+    const progress = progressBar.querySelector('.progress');
 
     function preventDefaults(e) {
         e.preventDefault();
@@ -19,6 +21,25 @@ document.addEventListener('DOMContentLoaded', () => {
     ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
         dropZone1.addEventListener(eventName, preventDefaults, false);
         dropZone2.addEventListener(eventName, preventDefaults, false);
+    });
+
+    // Highlight drop zone on drag events
+    function highlight(zone) {
+        zone.classList.add('highlight');
+    }
+
+    function unhighlight(zone) {
+        zone.classList.remove('highlight');
+    }
+
+    ['dragenter', 'dragover'].forEach(eventName => {
+        dropZone1.addEventListener(eventName, () => highlight(dropZone1), false);
+        dropZone2.addEventListener(eventName, () => highlight(dropZone2), false);
+    });
+
+    ['dragleave', 'drop'].forEach(eventName => {
+        dropZone1.addEventListener(eventName, () => unhighlight(dropZone1), false);
+        dropZone2.addEventListener(eventName, () => unhighlight(dropZone2), false);
     });
 
     // Handle file reading and display content in textarea
@@ -42,6 +63,21 @@ document.addEventListener('DOMContentLoaded', () => {
     fileInput1.addEventListener('change', () => handleFile(fileInput1.files[0], script1));
     fileInput2.addEventListener('change', () => handleFile(fileInput2.files[0], script2));
 
+    // Simulate progress bar
+    function simulateProgress(callback) {
+        progressBar.classList.remove('hidden');
+        let width = 0;
+        const interval = setInterval(() => {
+            width += 10;
+            progress.style.width = `${width}%`;
+            if (width >= 100) {
+                clearInterval(interval);
+                progressBar.classList.add('hidden');
+                callback();
+            }
+        }, 100);
+    }
+
     // Merge and display diffs
     mergeButton.addEventListener('click', () => {
         const content1 = script1.value;
@@ -52,9 +88,11 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
-        // Generate diff using JsDiff
-        const diff = JsDiff.createTwoFilesPatch('Script1.py', 'Script2.py', content1, content2);
-        const diffHtml = Diff2Html.html(diff, { drawFileList: false, matching: 'lines' });
-        diffOutput.innerHTML = diffHtml;
+        simulateProgress(() => {
+            // Generate diff using JsDiff
+            const diff = JsDiff.createTwoFilesPatch('Script1.py', 'Script2.py', content1, content2);
+            const diffHtml = Diff2Html.html(diff, { drawFileList: false, matching: 'lines' });
+            diffOutput.innerHTML = diffHtml;
+        });
     });
 });
