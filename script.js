@@ -89,28 +89,31 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     
         simulateProgress(() => {
-            let mergedHtml = "";
+            let mergedHtml = "<div><h2>Merged Script:</h2><pre>";
             const file1Set = new Set(content1);
     
             content1.forEach(line => {
                 // Green for lines from File 1 (base file)
-                mergedHtml += `<span style="background-color: rgba(76, 175, 80, 0.2);">${line}</span><br>`;
+                mergedHtml += `<span style="background-color: rgba(76, 175, 80, 0.2);">${line}</span>\n`;
             });
     
             content2.forEach(line => {
                 if (file1Set.has(line)) {
                     // Purple for duplicate lines
-                    mergedHtml += `<span style="background-color: rgba(156, 39, 176, 0.2);">${line}</span><br>`;
+                    mergedHtml += `<span style="background-color: rgba(156, 39, 176, 0.2);">${line}</span>\n`;
                 } else {
                     // Blue for new lines from File 2
-                    mergedHtml += `<span style="background-color: rgba(33, 150, 243, 0.2);">${line}</span><br>`;
+                    mergedHtml += `<span style="background-color: rgba(33, 150, 243, 0.2);">${line}</span>\n`;
                 }
             });
     
-            // Set the merged output as HTML
+            mergedHtml += "</pre></div>";
+    
+            // Update the diffOutput div
             diffOutput.innerHTML = mergedHtml;
         });
     });
+    
     
     
 });
