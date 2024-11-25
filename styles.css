@@ -70,7 +70,7 @@ textarea {
 
 /* Merged Output Section */
 #mergedSection {
-    text-align: left;
+    text-align: center;
     margin-top: 20px;
 }
 
@@ -119,6 +119,7 @@ textarea {
     max-height: 500px;
     overflow-y: auto;
     white-space: pre-wrap; /* Preserve line breaks */
+    text-align: left;
 }
 
 /* Diff Container */
