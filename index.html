@@ -5,11 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Python Script Merger</title>
     <link rel="stylesheet" href="./styles.css">
-    <link rel="stylesheet" href="./libs/diff2html.min.css">
 </head>
 <body>
     <div class="container">
         <h1>Python Script Merger</h1>
+        
+        <!-- Input Section -->
         <div class="input-section">
             <div class="file-input">
                 <label for="fileInput1">Script 1:</label>
@@ -21,6 +22,7 @@
                 </div>
                 <textarea id="script1" placeholder="Script 1 content will appear here..." readonly></textarea>
             </div>
+            
             <div class="file-input">
                 <label for="fileInput2">Script 2:</label>
                 <div id="dropZone2" class="drop-zone">
@@ -32,14 +34,16 @@
                 <textarea id="script2" placeholder="Script 2 content will appear here..." readonly></textarea>
             </div>
         </div>
-        <button id="mergeButton">Merge Scripts</button>
-        <div id="progressBar" class="progress-bar hidden">
-            <div class="progress"></div>
+        
+        <!-- Merged Output Section -->
+        <div id="mergedSection">
+            <button id="mergeButton">Merge Scripts</button>
+            <div id="progressBar" class="progress-bar hidden">
+                <div class="progress"></div>
+            </div>
+            <textarea id="diffOutput" placeholder="Merged script output will appear here..." readonly></textarea>
         </div>
-        <textarea id="diffOutput" placeholder="Merged content will appear here..." readonly></textarea>
     </div>
-    <script src="./libs/diff.min.js"></script>
-    <script src="./libs/diff2html.min.js"></script>
     <script src="./script.js"></script>
 </body>
 </html>

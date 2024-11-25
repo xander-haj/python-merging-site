@@ -1,3 +1,4 @@
+/* General Styles */
 body {
     background-color: #121212;
     color: #e0e0e0;
@@ -7,47 +8,55 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    flex-direction: column;
+    min-height: 100vh;
 }
 
 .container {
-    max-width: 960px;
+    width: 90%;
+    max-width: 1200px;
     margin: 0 auto;
     padding: 20px;
-    text-align: center;
-}
-
-h1 {
-    margin-bottom: 30px;
-    font-size: 2rem;
-}
-
-.input-section {
     display: flex;
     flex-direction: column;
     gap: 20px;
-    align-items: center;
+}
+
+h1 {
+    margin-bottom: 20px;
+    font-size: 2rem;
+    text-align: center;
+}
+
+/* Top Row Layout for Script 1 and Script 2 */
+.input-section {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    flex-wrap: wrap;
 }
 
 .file-input {
     display: flex;
     flex-direction: column;
     gap: 10px;
-    align-items: center;
+    flex: 1 1 calc(50% - 20px);
+    max-width: calc(50% - 20px);
 }
 
 textarea {
-    resize: none;
+    resize: vertical;
     background-color: #1e1e1e;
     color: #fff;
     padding: 10px;
     border-radius: 5px;
     font-family: 'Courier New', Courier, monospace;
     width: 100%;
-    max-width: 500px;
-    height: 100px;
+    min-height: 150px;
+    max-height: 300px;
 }
 
+/* Drag and Drop Zones */
 .drop-zone {
     background-color: #1e1e1e;
     color: #e0e0e0;
@@ -61,6 +70,12 @@ textarea {
 .drop-zone.highlight {
     border-color: #2962ff;
     background-color: #2c2c2c;
+}
+
+/* Bottom Row for Merged Scripts */
+#mergedSection {
+    text-align: center;
+    margin-top: 20px;
 }
 
 #mergeButton {
@@ -97,15 +112,13 @@ textarea {
 }
 
 #diffOutput {
-    margin-top: 20px;
     background-color: #1e1e1e;
     color: white;
     padding: 10px;
     border-radius: 5px;
-    overflow-x: auto;
-    width: 100%;
-    min-height: 200px;
     resize: vertical;
     font-family: 'Courier New', Courier, monospace;
+    width: 100%;
+    min-height: 200px;
+    overflow: auto;
 }
-
