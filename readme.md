@@ -8,16 +8,13 @@ A sleek, dark-themed website that allows users to upload two Python scripts via 
 - **Script Input:** Upload two Python scripts by dragging & dropping or selecting files.
 - **Diff Visualization:** View differences similar to GitHub's pull request interface with color-coded additions and deletions.
 - **User Feedback:** Confirms when files are successfully loaded.
+- **Error Handling:** Alerts users for invalid file types or reading errors.
 
 ## Technologies Used
 
 - **HTML, CSS, JavaScript:** Core web technologies.
 - **Diff2Html:** A library to convert diff outputs into beautiful HTML.
 - **JsDiff:** A JavaScript library for generating diffs.
-
-## Hosting
-
-Hosted on [GitHub Pages](https://pages.github.com/).
 
 ## Usage
 
@@ -45,5 +42,3 @@ Hosted on [GitHub Pages](https://pages.github.com/).
 
 4. **Security:**
     - Since this is a static site, there's no backend processing. All script comparisons are done on the client-side, ensuring user scripts are not sent to any server.
-
----

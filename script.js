@@ -123,14 +123,12 @@ document.addEventListener('DOMContentLoaded', () => {
      * @returns {string} Unified diff
      */
     function generateDiff(oldStr, newStr) {
-        const JsDiff = window.JsDiff;
-
-        if (!JsDiff) {
-            alert('Diff library not loaded.');
+        if (typeof Diff === 'undefined') {
+            alert('Diff library was not loaded.');
             return '';
         }
 
-        const diff = JsDiff.createTwoFilesPatch('Script1.py', 'Script2.py', oldStr, newStr);
+        const diff = Diff.createTwoFilesPatch('Script1.py', 'Script2.py', oldStr, newStr);
         return diff;
     }
 });
