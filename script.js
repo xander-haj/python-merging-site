@@ -105,6 +105,11 @@ document.addEventListener('DOMContentLoaded', () => {
         // Perform a line-by-line diff
         const diff = generateDiff(content1, content2);
 
+        if (!diff.trim()) {
+            diffOutput.innerHTML = '<p>No differences found between the scripts.</p>';
+            return;
+        }
+
         // Render the diff using Diff2Html
         const diffHtml = Diff2Html.html(diff, { drawFileList: false, matching: 'lines' });
 
@@ -118,7 +123,12 @@ document.addEventListener('DOMContentLoaded', () => {
      * @returns {string} Unified diff
      */
     function generateDiff(oldStr, newStr) {
-        const JsDiff = window.JsDiff || Diff;
+        const JsDiff = window.JsDiff;
+
+        if (!JsDiff) {
+            alert('Diff library not loaded.');
+            return '';
+        }
 
         const diff = JsDiff.createTwoFilesPatch('Script1.py', 'Script2.py', oldStr, newStr);
         return diff;
