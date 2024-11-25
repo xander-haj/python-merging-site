@@ -95,17 +95,17 @@ document.addEventListener('DOMContentLoaded', () => {
     
             // Process content1 (File 1 - Base)
             content1.forEach((line) => {
-                mergedHtml += `<span style="background-color: rgba(76, 175, 80, 0.2);">${line}</span>\n`;
+                mergedHtml += `<span style="background-color: rgba(0, 255, 0, 0.5);">${line}</span>\n`;
             });
     
             // Process content2 (File 2 - Merging)
             content2.forEach((line) => {
                 if (content1.includes(line)) {
                     // Duplicate lines (Purple)
-                    mergedHtml += `<span style="background-color: rgba(156, 39, 176, 0.2);">${line}</span>\n`;
+                    mergedHtml += `<span style="background-color: rgba(131, 0, 170, 1);">${line}</span>\n`;
                 } else {
                     // New lines (Blue)
-                    mergedHtml += `<span style="background-color: rgba(33, 150, 243, 0.2);">${line}</span>\n`;
+                    mergedHtml += `<span style="background-color: rgba(0, 255, 255, 0.5);">${line}</span>\n`;
                 }
             });
     
