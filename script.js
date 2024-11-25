@@ -43,10 +43,10 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // Handle file reading and display content in textarea
-    function handleFile(file, textarea) {
+    function handleFile(file, codeElement) {
         const reader = new FileReader();
         reader.onload = (e) => {
-            textarea.value = e.target.result;
+            codeElement.textContent = e.target.result; // Set textContent for raw text
         };
         reader.onerror = () => {
             alert('Error reading file.');
@@ -54,14 +54,15 @@ document.addEventListener('DOMContentLoaded', () => {
         reader.readAsText(file);
     }
 
-    dropZone1.addEventListener('drop', (e) => handleFile(e.dataTransfer.files[0], script1));
-    dropZone2.addEventListener('drop', (e) => handleFile(e.dataTransfer.files[0], script2));
+    dropZone1.addEventListener('drop', (e) => handleFile(e.dataTransfer.files[0], document.querySelector('#script1 code')));
+    dropZone2.addEventListener('drop', (e) => handleFile(e.dataTransfer.files[0], document.querySelector('#script2 code')));
 
     selectButton1.addEventListener('click', () => fileInput1.click());
     selectButton2.addEventListener('click', () => fileInput2.click());
 
-    fileInput1.addEventListener('change', () => handleFile(fileInput1.files[0], script1));
-    fileInput2.addEventListener('change', () => handleFile(fileInput2.files[0], script2));
+    fileInput1.addEventListener('change', () => handleFile(fileInput1.files[0], document.querySelector('#script1 code')));
+    fileInput2.addEventListener('change', () => handleFile(fileInput2.files[0], document.querySelector('#script2 code')));
+
 
     // Simulate progress bar
     function simulateProgress(callback) {
@@ -80,55 +81,36 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Merge and display diffs
     mergeButton.addEventListener('click', () => {
-        const content1 = script1.value.split("\n");
-        const content2 = script2.value.split("\n");
-    
+        const content1 = document.querySelector('#script1 code').textContent.split("\n");
+        const content2 = document.querySelector('#script2 code').textContent.split("\n");
+        const diffCode = document.querySelector('#diffOutput code');
+        
         if (!content1.length || !content2.length) {
             alert('Please select or drop both Python scripts.');
             return;
         }
     
         simulateProgress(() => {
-            let mergedHtml = "<div class='diff-container'><table>";
+            let mergedHtml = "";
     
             // Process content1 (File 1 - Base)
-            content1.forEach((line, index) => {
-                mergedHtml += `
-                    <tr>
-                        <td class="line-number">${index + 1}</td>
-                        <td class="line-content" style="background-color: rgba(76, 175, 80, 0.2);">
-                            ${line}
-                        </td>
-                    </tr>`;
+            content1.forEach((line) => {
+                mergedHtml += `<span style="background-color: rgba(76, 175, 80, 0.2);">${line}</span>\n`;
             });
     
             // Process content2 (File 2 - Merging)
-            content2.forEach((line, index) => {
+            content2.forEach((line) => {
                 if (content1.includes(line)) {
                     // Duplicate lines (Purple)
-                    mergedHtml += `
-                        <tr>
-                            <td class="line-number">${content1.indexOf(line) + 1}</td>
-                            <td class="line-content" style="background-color: rgba(156, 39, 176, 0.2);">
-                                ${line}
-                            </td>
-                        </tr>`;
+                    mergedHtml += `<span style="background-color: rgba(156, 39, 176, 0.2);">${line}</span>\n`;
                 } else {
                     // New lines (Blue)
-                    mergedHtml += `
-                        <tr>
-                            <td class="line-number">${content1.length + index + 1}</td>
-                            <td class="line-content" style="background-color: rgba(33, 150, 243, 0.2);">
-                                ${line}
-                            </td>
-                        </tr>`;
+                    mergedHtml += `<span style="background-color: rgba(33, 150, 243, 0.2);">${line}</span>\n`;
                 }
             });
     
-            mergedHtml += "</table></div>";
-    
-            // Set the merged output in the diffOutput div
-            diffOutput.innerHTML = mergedHtml;
+            // Populate the merged output
+            diffCode.innerHTML = mergedHtml;
         });
     });
     

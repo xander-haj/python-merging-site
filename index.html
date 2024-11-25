@@ -11,38 +11,40 @@
         <h1>Python Script Merger</h1>
         
         <!-- Input Section -->
-        <div class="input-section">
-            <div class="file-input">
-                <label for="fileInput1">Script 1:</label>
-                <div id="dropZone1" class="drop-zone">
-                    <p>Drag & Drop Script 1 here or</p>
-                    <button type="button" class="select-button" id="selectButton1">Select File</button>
-                    <input type="file" id="fileInput1" accept=".py" hidden>
-                    <span id="fileName1" class="file-name">No file selected</span>
-                </div>
-                <textarea id="script1" placeholder="Script 1 content will appear here..." readonly></textarea>
-            </div>
-            
-            <div class="file-input">
-                <label for="fileInput2">Script 2:</label>
-                <div id="dropZone2" class="drop-zone">
-                    <p>Drag & Drop Script 2 here or</p>
-                    <button type="button" class="select-button" id="selectButton2">Select File</button>
-                    <input type="file" id="fileInput2" accept=".py" hidden>
-                    <span id="fileName2" class="file-name">No file selected</span>
-                </div>
-                <textarea id="script2" placeholder="Script 2 content will appear here..." readonly></textarea>
-            </div>
+        <!-- Input Section -->
+<div class="input-section">
+    <div class="file-input">
+        <label for="fileInput1">Script 1:</label>
+        <div id="dropZone1" class="drop-zone">
+            <p>Drag & Drop Script 1 here or</p>
+            <button type="button" class="select-button" id="selectButton1">Select File</button>
+            <input type="file" id="fileInput1" accept=".py" hidden>
+            <span id="fileName1" class="file-name">No file selected</span>
         </div>
-        
-        <!-- Merged Output Section -->
-        <div id="mergedSection">
-            <button id="mergeButton">Merge Scripts</button>
-            <div id="progressBar" class="progress-bar hidden">
-                <div class="progress"></div>
-            </div>
-            <div id="diffOutput"style="text-align: left;" class="output-box"></div>
+        <pre id="script1" class="code-block"><code></code></pre>
+    </div>
+    
+    <div class="file-input">
+        <label for="fileInput2">Script 2:</label>
+        <div id="dropZone2" class="drop-zone">
+            <p>Drag & Drop Script 2 here or</p>
+            <button type="button" class="select-button" id="selectButton2">Select File</button>
+            <input type="file" id="fileInput2" accept=".py" hidden>
+            <span id="fileName2" class="file-name">No file selected</span>
         </div>
+        <pre id="script2" class="code-block"><code></code></pre>
+    </div>
+</div>
+
+<!-- Merged Output Section -->
+<div id="mergedSection">
+    <button id="mergeButton">Merge Scripts</button>
+    <div id="progressBar" class="progress-bar hidden">
+        <div class="progress"></div>
+    </div>
+    <pre id="diffOutput" class="code-block"><code></code></pre>
+</div>
+
     </div>
     
     <script src="./script.js"></script>
