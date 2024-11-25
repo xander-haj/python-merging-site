@@ -92,27 +92,31 @@ document.addEventListener('DOMContentLoaded', () => {
     
         simulateProgress(() => {
             let mergedHtml = "";
+            let maxLines = Math.max(content1.length, content2.length);
     
-            // Process content1 (File 1 - Base)
-            content1.forEach((line) => {
-                mergedHtml += `<span style="background-color: rgba(0, 255, 0, 0.5);">${line}</span>\n`;
-            });
+            for (let i = 0; i < maxLines; i++) {
+                const line1 = content1[i] || ""; // Line from File 1
+                const line2 = content2[i] || ""; // Line from File 2
     
-            // Process content2 (File 2 - Merging)
-            content2.forEach((line) => {
-                if (content1.includes(line)) {
-                    // Duplicate lines (Purple)
-                    mergedHtml += `<span style="background-color: rgba(131, 0, 170, 1);">${line}</span>\n`;
+                if (line1 && line2 && line1 === line2) {
+                    // Purple: Matching lines
+                    mergedHtml += `<span style="background-color: rgba(0, 255, 0, 0.5);">${line1}</span>\n`;
                 } else {
-                    // New lines (Blue)
-                    mergedHtml += `<span style="background-color: rgba(0, 255, 255, 0.5);">${line}</span>\n`;
+                    if (line1) {
+                        // Green: Only in File 1
+                        mergedHtml += `<span style="background-color: rgba(131, 0, 170, 1);">${line1}</span>\n`;
+                    }
+                    if (line2) {
+                        // Blue: Only in File 2
+                        mergedHtml += `<span style="background-color: rgba(0, 255, 255, 0.5);">${line2}</span>\n`;
+                    }
                 }
-            });
+            }
     
-            // Populate the merged output
             diffCode.innerHTML = mergedHtml;
         });
     });
+    
     
     
     
