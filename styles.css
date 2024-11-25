@@ -159,11 +159,13 @@ textarea {
 
 /* Line Content */
 .line-content {
-    text-align: left; /* Ensures the text is aligned to the left */
-    padding-left: 10px; /* Adds a small left padding for readability */
-    font-family: 'Courier New', Courier, monospace; /* Ensures monospace font */
-    white-space: pre-wrap; /* Preserves line breaks and spacing */
-    word-break: break-word; /* Prevents overflow by breaking long words */
+    text-align: left !important; /* Absolutely enforce left alignment */
+    display: block; /* Ensure it behaves like a block element */
+    padding-left: 10px; /* Add spacing for readability */
+    font-family: 'Courier New', Courier, monospace; /* Monospace font for code readability */
+    white-space: pre-wrap; /* Preserve line breaks and spacing */
+    word-wrap: break-word; /* Prevent long words or content from overflowing */
+    margin: 0; /* Remove any inherited margins */
 }
 
 
