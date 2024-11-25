@@ -89,27 +89,45 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     
         simulateProgress(() => {
-            let mergedHtml = "<div><h2>Merged Script:</h2><pre>";
-            const file1Set = new Set(content1);
+            let mergedHtml = "<div class='diff-container'><table>";
     
-            content1.forEach(line => {
-                // Green for lines from File 1 (base file)
-                mergedHtml += `<span style="background-color: rgba(76, 175, 80, 0.2);">${line}</span>\n`;
+            // Process content1 (File 1 - Base)
+            content1.forEach((line, index) => {
+                mergedHtml += `
+                    <tr>
+                        <td class="line-number">${index + 1}</td>
+                        <td class="line-content" style="background-color: rgba(76, 175, 80, 0.2);">
+                            ${line}
+                        </td>
+                    </tr>`;
             });
     
-            content2.forEach(line => {
-                if (file1Set.has(line)) {
-                    // Purple for duplicate lines
-                    mergedHtml += `<span style="background-color: rgba(156, 39, 176, 0.2);">${line}</span>\n`;
+            // Process content2 (File 2 - Merging)
+            content2.forEach((line, index) => {
+                if (content1.includes(line)) {
+                    // Duplicate lines (Purple)
+                    mergedHtml += `
+                        <tr>
+                            <td class="line-number">${content1.indexOf(line) + 1}</td>
+                            <td class="line-content" style="background-color: rgba(156, 39, 176, 0.2);">
+                                ${line}
+                            </td>
+                        </tr>`;
                 } else {
-                    // Blue for new lines from File 2
-                    mergedHtml += `<span style="background-color: rgba(33, 150, 243, 0.2);">${line}</span>\n`;
+                    // New lines (Blue)
+                    mergedHtml += `
+                        <tr>
+                            <td class="line-number">${content1.length + index + 1}</td>
+                            <td class="line-content" style="background-color: rgba(33, 150, 243, 0.2);">
+                                ${line}
+                            </td>
+                        </tr>`;
                 }
             });
     
-            mergedHtml += "</pre></div>";
+            mergedHtml += "</table></div>";
     
-            // Update the diffOutput div
+            // Set the merged output in the diffOutput div
             diffOutput.innerHTML = mergedHtml;
         });
     });
