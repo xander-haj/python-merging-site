@@ -17,13 +17,13 @@ document.addEventListener('DOMContentLoaded', () => {
         e.stopPropagation();
     }
 
-    // Prevent default behavior for drag-and-drop
+    // Prevent default drag-and-drop behavior
     ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
         dropZone1.addEventListener(eventName, preventDefaults, false);
         dropZone2.addEventListener(eventName, preventDefaults, false);
     });
 
-    // Highlight drop zone on drag events
+    // Highlight drop zones
     function highlight(zone) {
         zone.classList.add('highlight');
     }
@@ -42,16 +42,16 @@ document.addEventListener('DOMContentLoaded', () => {
         dropZone2.addEventListener(eventName, () => unhighlight(dropZone2), false);
     });
 
-    // Handle file reading and display content in textarea
+    // Handle file reading
     function handleFile(file, codeElement) {
         const reader = new FileReader();
         reader.onload = (e) => {
-            codeElement.textContent = e.target.result; // Set textContent for raw text
+            codeElement.textContent = e.target.result; // Display raw text content
         };
         reader.onerror = () => {
             alert('Error reading file.');
         };
-        reader.readAsText(file);
+        reader.readAsText(file); // Read file as plain text
     }
 
     dropZone1.addEventListener('drop', (e) => handleFile(e.dataTransfer.files[0], document.querySelector('#script1 code')));
@@ -62,7 +62,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     fileInput1.addEventListener('change', () => handleFile(fileInput1.files[0], document.querySelector('#script1 code')));
     fileInput2.addEventListener('change', () => handleFile(fileInput2.files[0], document.querySelector('#script2 code')));
-
 
     // Simulate progress bar
     function simulateProgress(callback) {
@@ -81,43 +80,26 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Merge and display diffs
     mergeButton.addEventListener('click', () => {
-        const content1 = document.querySelector('#script1 code').textContent.split("\n");
-        const content2 = document.querySelector('#script2 code').textContent.split("\n");
+        const content1 = document.querySelector('#script1 code').textContent;
+        const content2 = document.querySelector('#script2 code').textContent;
         const diffCode = document.querySelector('#diffOutput code');
-        
-        if (!content1.length || !content2.length) {
-            alert('Please select or drop both Python scripts.');
+
+        if (!content1 || !content2) {
+            alert('Please select or drop both files.');
             return;
         }
-    
+
         simulateProgress(() => {
-            let mergedHtml = "";
-            let maxLines = Math.max(content1.length, content2.length);
-    
-            for (let i = 0; i < maxLines; i++) {
-                const line1 = content1[i] || ""; // Line from File 1
-                const line2 = content2[i] || ""; // Line from File 2
-    
-                if (line1 && line2 && line1 === line2) {
-                    // Purple: Matching lines
-                    mergedHtml += `<span style="background-color: rgba(0, 255, 0, 0.5);">${line1}</span>\n`;
-                } else {
-                    if (line1) {
-                        // Green: Only in File 1
-                        mergedHtml += `<span style="background-color: rgba(131, 0, 170, 1);">${line1}</span>\n`;
-                    }
-                    if (line2) {
-                        // Blue: Only in File 2
-                        mergedHtml += `<span style="background-color: rgba(50, 50, 255, 1);">${line2}</span>\n`;
-                    }
-                }
-            }
-    
-            diffCode.innerHTML = mergedHtml;
+            const diff = JsDiff.diffLines(content1, content2);
+            const diffHtml = diff.map(part => {
+                const color = part.added
+                    ? 'rgba(50, 205, 50, 0.5)' // Green for additions
+                    : part.removed
+                        ? 'rgba(255, 69, 0, 0.5)' // Red for deletions
+                        : 'rgba(240, 240, 240, 1)'; // Gray for unchanged
+                return `<span style="background-color: ${color}; display: block; white-space: pre-wrap;">${part.value}</span>`;
+            }).join("");
+            diffCode.innerHTML = diffHtml;
         });
     });
-    
-    
-    
-    
 });
