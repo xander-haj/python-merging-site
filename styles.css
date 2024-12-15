@@ -96,7 +96,7 @@ h1 {
     transition: width 0.2s;
 }
 
-/* Consolidated Code Block Styling */
+/* Code Block Styling */
 .code-block {
     background-color: #1e1e1e;
     color: white;
@@ -123,4 +123,39 @@ h1 {
     color: #888;
     background-color: #2e2e2e;
     border-right: 1px solid #444;
+}
+
+/* Draggable Outputs */
+#script1, #script2 {
+    position: relative;
+    cursor: grab;
+}
+
+#script1:active, #script2:active {
+    cursor: grabbing;
+}
+
+/* Directional Constraints */
+#script1 {
+    left: 0; /* Start position for draggable left */
+}
+
+#script2 {
+    right: 0; /* Start position for draggable right */
+}
+
+/* Media Queries for Responsiveness */
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .input-section {
+        grid-template-columns: 1fr;
+    }
+
+    #progressBar {
+        max-width: 90%;
+    }
 }
