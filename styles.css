@@ -9,12 +9,12 @@ body {
     justify-content: center;
     align-items: center;
     min-height: 100vh;
+    overflow-x: auto; /* Enable horizontal scrolling for long content */
 }
 
 .container {
-    width: 90%;
-    max-width: 1400px;
-    margin: 0 auto;
+    width: 100%; /* Allow full width to accommodate long content */
+    max-width: none; /* Remove max-width constraints */
     padding: 20px;
     display: flex;
     flex-direction: column;
@@ -103,45 +103,42 @@ h1 {
     padding: 10px;
     border-radius: 5px;
     font-family: 'Courier New', Courier, monospace;
-    white-space: pre-wrap; /* Preserve line breaks */
-    overflow-x: auto; /* Enable horizontal scrolling */
-    max-height: 500px; /* Limit height */
-    min-height: 150px; /* Set a minimum height */
+    white-space: pre; /* Preserve all whitespace and prevent wrapping */
+    overflow-x: auto; /* Enable horizontal scrolling for long lines */
     border: 1px solid #333;
     text-align: left; /* Ensure all text is left-aligned */
+    min-height: 150px; /* Set a minimum height for the block */
+    width: auto; /* Allow dynamic resizing based on content */
 }
 
-.code-block code {
-    display: block;
-    word-break: break-word; /* Handle long lines */
+/* Horizontal Scroll Support */
+.code-block::-webkit-scrollbar {
+    height: 8px;
 }
 
-/* Line Numbers */
-.line-number {
-    text-align: right; /* Align line numbers to the right */
-    padding-right: 10px;
-    color: #888;
-    background-color: #2e2e2e;
-    border-right: 1px solid #444;
+.code-block::-webkit-scrollbar-thumb {
+    background-color: #555;
+    border-radius: 5px;
+}
+
+.code-block::-webkit-scrollbar-track {
+    background-color: #2c2c2c;
 }
 
 /* Draggable Outputs */
 #script1, #script2 {
     position: relative;
     cursor: grab;
+    display: inline-block; /* Ensure inline-block for proper horizontal growth */
 }
 
 #script1:active, #script2:active {
     cursor: grabbing;
 }
 
-/* Directional Constraints */
-#script1 {
-    left: 0; /* Start position for draggable left */
-}
-
-#script2 {
-    right: 0; /* Start position for draggable right */
+/* Remove Margins for Unconstrained Layout */
+.container, .code-block {
+    margin: 0; /* Remove default margins to allow dynamic growth */
 }
 
 /* Media Queries for Responsiveness */
