@@ -12,18 +12,21 @@ document.addEventListener('DOMContentLoaded', () => {
     const progressBar = document.getElementById('progressBar');
     const progress = progressBar.querySelector('.progress');
 
+    // Drag state tracking
+    let isDragging = false;
+    let startX = 0;
+    let initialPosition = 0;
+
     function preventDefaults(e) {
         e.preventDefault();
         e.stopPropagation();
     }
 
-    // Prevent default drag-and-drop behavior
     ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
         dropZone1.addEventListener(eventName, preventDefaults, false);
         dropZone2.addEventListener(eventName, preventDefaults, false);
     });
 
-    // Highlight drop zones
     function highlight(zone) {
         zone.classList.add('highlight');
     }
@@ -42,16 +45,15 @@ document.addEventListener('DOMContentLoaded', () => {
         dropZone2.addEventListener(eventName, () => unhighlight(dropZone2), false);
     });
 
-    // Handle file reading
     function handleFile(file, codeElement) {
         const reader = new FileReader();
         reader.onload = (e) => {
-            codeElement.textContent = e.target.result; // Display raw text content
+            codeElement.textContent = e.target.result;
         };
         reader.onerror = () => {
             alert('Error reading file.');
         };
-        reader.readAsText(file); // Read file as plain text
+        reader.readAsText(file);
     }
 
     dropZone1.addEventListener('drop', (e) => handleFile(e.dataTransfer.files[0], document.querySelector('#script1 code')));
@@ -63,7 +65,6 @@ document.addEventListener('DOMContentLoaded', () => {
     fileInput1.addEventListener('change', () => handleFile(fileInput1.files[0], document.querySelector('#script1 code')));
     fileInput2.addEventListener('change', () => handleFile(fileInput2.files[0], document.querySelector('#script2 code')));
 
-    // Simulate progress bar
     function simulateProgress(callback) {
         progressBar.classList.remove('hidden');
         let width = 0;
@@ -78,7 +79,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 100);
     }
 
-    // Merge and display diffs
     mergeButton.addEventListener('click', () => {
         const content1 = document.querySelector('#script1 code').textContent;
         const content2 = document.querySelector('#script2 code').textContent;
@@ -102,4 +102,42 @@ document.addEventListener('DOMContentLoaded', () => {
             diffCode.innerHTML = diffHtml;
         });
     });
+
+    // Dragging logic
+    function makeDraggable(element, direction) {
+        element.addEventListener('mousedown', (e) => {
+            isDragging = true;
+            startX = e.clientX;
+            initialPosition = element.offsetLeft;
+
+            document.addEventListener('mousemove', handleDrag);
+            document.addEventListener('mouseup', stopDrag);
+        });
+
+        function handleDrag(e) {
+            if (!isDragging) return;
+
+            const deltaX = e.clientX - startX;
+            let newPosition = initialPosition + deltaX;
+
+            // Restrict movement based on direction
+            if (direction === 'left') {
+                newPosition = Math.min(initialPosition, newPosition); // Only allow left movement
+            } else if (direction === 'right') {
+                newPosition = Math.max(initialPosition, newPosition); // Only allow right movement
+            }
+
+            element.style.transform = `translateX(${newPosition - initialPosition}px)`;
+        }
+
+        function stopDrag() {
+            isDragging = false;
+            document.removeEventListener('mousemove', handleDrag);
+            document.removeEventListener('mouseup', stopDrag);
+        }
+    }
+
+    // Apply draggable behavior to the outputs
+    makeDraggable(document.querySelector('#script1'), 'left');
+    makeDraggable(document.querySelector('#script2'), 'right');
 });
